@@ -1,2 +1,2 @@
-# SchoolMngr.Services.Identity
-Service for centralized STS and users management 
+# Pandora.Infrastructure.Identity
+STS IdP Server for centralized users management. Build on top of OpenSource IdentityServer library. Some features: OAuth2, OIDC, SSO, TOTP, FIDO2 
