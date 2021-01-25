@@ -6,7 +6,7 @@
   </PropertyGroup>
   
   <ItemGroup Label="Global Package Imports">
-    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.0.0" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
   </ItemGroup>
 
   <PropertyGroup Label="Global Package Versions">
