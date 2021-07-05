@@ -3,13 +3,11 @@
 /// </summary>
 namespace Pandora.Infrastructure.Identity.ApiControllers
 {
-    using Pandora.Infrastructure.Identity.Interfaces;
-    using Pandora.Infrastructure.Identity.Model.Dtos;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+    using Pandora.Infrastructure.Identity.Interfaces;
+    using Pandora.Infrastructure.Identity.Model.Dtos;
     using Pandora.NetStdLibrary.Base.Application;
-    using Pandora.NetStdLibrary.Base.Constants;
     using System.Linq;
     using System.Threading.Tasks;
 

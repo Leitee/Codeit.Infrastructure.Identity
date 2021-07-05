@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Pandora.NetStdLibrary.Base.Common;
-using Pandora.NetStdLibrary.Base.Constants;
 using Pandora.NetStdLibrary.Base.Identity;
 using System.Collections.Generic;
 using System.Linq;
+using Pandora.NetStdLibrary.Abstractions.Identity;
 
 namespace Pandora.Infrastructure.Identity.Config
 {
@@ -169,7 +169,7 @@ namespace Pandora.Infrastructure.Identity.Config
 
                 if (result.Succeeded)
                 {
-                    var roleName = RolesEnum.DEBUG.GetDescription();
+                    var roleName = RoleEnum.DEBUG.GetDescription();
                     var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
                     _ = roleManager.CreateAsync(new ApplicationRole(roleName, "For development porpouse")).Result;
 
