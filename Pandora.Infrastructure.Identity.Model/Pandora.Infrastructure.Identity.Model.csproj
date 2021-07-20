@@ -8,4 +8,8 @@
     <PackageReference Include="Reinforced.Typings" Version="1.5.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Pandora.NetStdLibrary.Base\Pandora.NetStdLibrary.Base\Pandora.NetStdLibrary.Base.csproj" />
+  </ItemGroup>
+
 </Project>

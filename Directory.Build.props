@@ -10,12 +10,12 @@
   </ItemGroup>
 
   <PropertyGroup Label="Global Package Versions">
-    <PandoraBaseVersion>0.6.1</PandoraBaseVersion>
+    <PandoraBaseVersion>2.0.0</PandoraBaseVersion>
     <EntityFrameworkAllPackageVersion>5.0.7</EntityFrameworkAllPackageVersion>
     <MicrosoftExtensionsConfigurationAllPackageVersion>5.0.0</MicrosoftExtensionsConfigurationAllPackageVersion>
   </PropertyGroup>
   
-  <!--DO NOT CHANGE CODE BELOW-->
+  <!--DO NOT CHANGE CODE BELOW--><!--
   <PropertyGroup Label="Check If Exist">
     <BaseLibrary>$([MSBuild]::GetPathOfFileAbove('Pandora.NetStdLibrary.Base.csproj', '$(MSBuildThisFileDirectory)..\base\Pandora.NetStdLibrary.Base'))</BaseLibrary>
   </PropertyGroup>
@@ -31,6 +31,6 @@
         <PackageReference Include="Pandora.NetStdLibrary.Base" Version="$(PandoraBaseVersion)" />
       </ItemGroup>
     </Otherwise>
-  </Choose>
+  </Choose>-->
 
 </Project>
