@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.Infrastructure.Identity", "Codeit.Infrastructure.Identity\Codeit.Infrastructure.Identity.csproj", "{4D9DA118-4241-416B-8D2B-549EBEF11BE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{58DDC4C0-968C-4766-B66A-D1273C1E0E16}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Codeits.Infrastructure.Identity\Dockerfile = Codeits.Infrastructure.Identity\Dockerfile
+		LICENSE = LICENSE
+		README.md = README.md
+		Codeits.Infrastructure.Identity\tempkey.rsa = Codeits.Infrastructure.Identity\tempkey.rsa
+		Codeits.Infrastructure.Identity\updateUI.ps1 = Codeits.Infrastructure.Identity\updateUI.ps1
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.Infrastructure.Identity.Test", "Codeit.Infrastructure.Identity.Test\Codeit.Infrastructure.Identity.Test.csproj", "{C6A59E15-5723-437C-8CD8-84BA02A714B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.Infrastructure.Identity.DAL", "Codeit.Infrastructure.Identity.DAL\Codeit.Infrastructure.Identity.DAL.csproj", "{67E7D17E-80DF-42BD-B932-C337DCB9659F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.Infrastructure.Identity.Model", "Codeit.Infrastructure.Identity.Model\Codeit.Infrastructure.Identity.Model.csproj", "{B329D4BA-5A2C-4EE0-BE9A-D54BA724FD82}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D9DA118-4241-416B-8D2B-549EBEF11BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D9DA118-4241-416B-8D2B-549EBEF11BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D9DA118-4241-416B-8D2B-549EBEF11BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D9DA118-4241-416B-8D2B-549EBEF11BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6A59E15-5723-437C-8CD8-84BA02A714B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6A59E15-5723-437C-8CD8-84BA02A714B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6A59E15-5723-437C-8CD8-84BA02A714B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6A59E15-5723-437C-8CD8-84BA02A714B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E7D17E-80DF-42BD-B932-C337DCB9659F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E7D17E-80DF-42BD-B932-C337DCB9659F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E7D17E-80DF-42BD-B932-C337DCB9659F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E7D17E-80DF-42BD-B932-C337DCB9659F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B329D4BA-5A2C-4EE0-BE9A-D54BA724FD82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B329D4BA-5A2C-4EE0-BE9A-D54BA724FD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B329D4BA-5A2C-4EE0-BE9A-D54BA724FD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B329D4BA-5A2C-4EE0-BE9A-D54BA724FD82}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7AF836E1-F611-4B46-98CC-2DF1B6EDECC7}
+	EndGlobalSection
+EndGlobal
