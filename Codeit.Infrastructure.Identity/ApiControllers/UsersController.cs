@@ -1,11 +1,11 @@
-﻿using IdentityModel;
+﻿using Codeit.Infrastructure.Identity.Interfaces;
+using Codeit.Infrastructure.Identity.Model.Dtos;
+using Codeit.NetStdLibrary.Base.Abstractions.Identity;
+using Codeit.NetStdLibrary.Base.Application;
+using IdentityModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Codeit.Infrastructure.Identity.Interfaces;
-using Codeit.Infrastructure.Identity.Model.Dtos;
-using Codeit.NetStdLibrary.Base.Application;
-using Codeit.NetStdLibrary.Base.Constants;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using static IdentityServer4.IdentityServerConstants;
