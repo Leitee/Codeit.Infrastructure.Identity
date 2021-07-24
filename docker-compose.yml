@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+
+  identity:
+    image: ${DOCKER_REGISTRY-codeit}/identity
+    build:
+      context: .
+      dockerfile: Codeit.Infrastructure.Identity/Dockerfile
+
+  mssqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssqlserver
+
+volumes:
+
+  mssqlserver-data:
