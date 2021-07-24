@@ -54,7 +54,7 @@
 			Note that in case of using RtDivideTypesAmongFiles, RtTargetFile parameter will 
 			NOT be used anymore.
 		-->
-    <RtTargetDirectory>$(ProjectDir)Scripts\Fitnner</RtTargetDirectory>
+    <RtTargetDirectory>$(ProjectDir)Scripts\SchoolMngr</RtTargetDirectory>
 
 
     <!--
