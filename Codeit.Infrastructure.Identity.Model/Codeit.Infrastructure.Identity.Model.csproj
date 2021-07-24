@@ -9,12 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Codeit.NetStdLibrary.Base">
-      <HintPath>..\..\base\Codeit.NetStdLibrary.Base\bin\Debug\netstandard2.1\Codeit.NetStdLibrary.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="Codeit.NetStdLibrary.Base.Abstractions">
-      <HintPath>..\..\base\Codeit.NetStdLibrary.Base\bin\Debug\netstandard2.1\Codeit.NetStdLibrary.Base.Abstractions.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" />
   </ItemGroup>
 
 </Project>
