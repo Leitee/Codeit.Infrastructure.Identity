@@ -21,7 +21,7 @@ namespace Codeit.Infrastructure.Identity
                 .Enrich.WithProperty("ApplicationName", _appName)
                 .Enrich.WithProperty("Environment", _environmentName)
                 .Enrich.FromLogContext()
-                .ReadFrom.Configuration(new ConfigurationBuilder().GetBasicConfiguration())
+                .ReadFrom.Configuration(new ConfigurationBuilder().BuildBasicConfiguration())
                 .CreateLogger();
 
             try

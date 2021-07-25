@@ -9,8 +9,10 @@ using Codeit.Infrastructure.Identity.Services;
 using IdentityServer4;
 using IdentityServer4.Configuration;
 using IdentityServer4.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -88,6 +90,15 @@ namespace Codeit.Infrastructure.Identity
                 .AddIf(_settings.IsDevelopment, sv => sv.AddDatabaseDeveloperPageExceptionFilter());
 
             services.AddAuthentication()
+                .AddCookie(options =>
+                {
+                    // add an instance of the patched manager to the options:
+                    options.CookieManager = new ChunkingCookieManager();
+
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SameSite = SameSiteMode.None;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                })
                 .AddGoogle("Google", options =>
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
@@ -142,6 +153,7 @@ namespace Codeit.Infrastructure.Identity
 
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseCookiePolicy();
 
             app.UseCors("AllOrigins");
             app.UseIdentityServer();

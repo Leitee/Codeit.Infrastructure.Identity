@@ -1,6 +1,6 @@
 ﻿using Codeit.Infrastructure.Identity.Interfaces;
 using Codeit.Infrastructure.Identity.Model.Dtos;
-using Codeit.NetStdLibrary.Abstractions.Identity;
+using Codeit.NetStdLibrary.Base.Abstractions.Identity;
 using Codeit.NetStdLibrary.Base.Application;
 using IdentityModel;
 using Microsoft.AspNetCore.Authorization;

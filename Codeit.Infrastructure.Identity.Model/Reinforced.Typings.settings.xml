@@ -17,7 +17,7 @@
 			It is not used if RtDivideTypesAmongFiles='true' specified.
 			Important! Do not forget to include generated file to solution.
 		-->    
-    <RtTargetFile>$(ProjectDir)..\..\..\frontend\src\app\_shared\models\identity.model.ts</RtTargetFile>
+    <RtTargetFile>$(ProjectDir).\identity.model.ts</RtTargetFile>
 
     <!--
 			This property sets RT configuration method for fluent configuration.

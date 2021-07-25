@@ -1,6 +1,6 @@
 using Codeit.Infrastructure.Identity.DAL.Context;
 using Codeit.Infrastructure.Identity.Model.Entities;
-using Codeit.NetStdLibrary.Abstractions.Identity;
+using Codeit.NetStdLibrary.Base.Abstractions.Identity;
 using Codeit.NetStdLibrary.Base.Common;
 using Codeit.NetStdLibrary.Base.Identity;
 using IdentityModel;
@@ -33,21 +33,21 @@ namespace Codeit.Infrastructure.Identity.Config
 
             var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDBContext>();
 
-            #region Trainers Client
-            if (!context.Clients.Any(_ => _.ClientId == "trainers-web"))
+            #region Web Client
+            if (!context.Clients.Any(_ => _.ClientId == "shcoolmngr-web"))
             {
                 var client = new Client
                 {
-                    ClientId = "trainers-web",
-                    ClientName = "Client for Trainers web app.",
+                    ClientId = "shcoolmngr-web",
+                    ClientName = "Client for SchoolMngr web app.",
                     AllowedGrantTypes = new string[] { GrantType.ClientCredentials, GrantType.ResourceOwnerPassword },
-                    ClientSecrets = { new Secret("trainers-pass".ToSha256()) },
+                    ClientSecrets = { new Secret("shcoolmngr-pass".ToSha256()) },
 
                     AllowedScopes =
                     {
                         OidcConstants.StandardScopes.OpenId,
                         OidcConstants.StandardScopes.Profile,
-                        "catalog",
+                        "admin",
                         IdentityServerConstants.LocalApi.ScopeName
                     },
 
@@ -148,7 +148,7 @@ namespace Codeit.Infrastructure.Identity.Config
 
             if (!context.ApiScopes.Any())
             {
-                var apiResource = new ApiScope("trainers", "Trainers Services");
+                var apiResource = new ApiScope("shcoolmngr", "Shcoolmngr Services");
                 context.ApiScopes.Add(apiResource.ToEntity());
                 context.SaveChanges();
             }
