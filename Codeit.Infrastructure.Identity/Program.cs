@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Codeit.NetStdLibrary.Base.Common;
 using Serilog;
 using System;
+using System.IO;
 
 namespace Codeit.Infrastructure.Identity
 {
@@ -21,7 +22,7 @@ namespace Codeit.Infrastructure.Identity
                 .Enrich.WithProperty("ApplicationName", _appName)
                 .Enrich.WithProperty("Environment", _environmentName)
                 .Enrich.FromLogContext()
-                .ReadFrom.Configuration(new ConfigurationBuilder().BuildBasicConfiguration())
+                .ReadFrom.Configuration(CodeitUtils.BuildDefaultSettings(new ConfigurationBuilder()))
                 .CreateLogger();
 
             try
