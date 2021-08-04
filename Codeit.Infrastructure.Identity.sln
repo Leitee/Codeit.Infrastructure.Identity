@@ -25,6 +25,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.Infrastructure.Ident
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C21062B9-CAF4-42BA-ABDC-D94FE2BD85BE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base", "base", "{1383B1B7-E2F4-4221-A365-D838346C55A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.NetStdLibrary.Base.Abstractions", "..\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.Abstractions\Codeit.NetStdLibrary.Base.Abstractions.csproj", "{A1D8313F-B426-4BF3-8238-135436E35DA8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.NetStdLibrary.Base", "..\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj", "{50A50CC4-4719-4E72-90EB-42D3E7164C7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,9 +57,21 @@ Global
 		{C21062B9-CAF4-42BA-ABDC-D94FE2BD85BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C21062B9-CAF4-42BA-ABDC-D94FE2BD85BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C21062B9-CAF4-42BA-ABDC-D94FE2BD85BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1D8313F-B426-4BF3-8238-135436E35DA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1D8313F-B426-4BF3-8238-135436E35DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1D8313F-B426-4BF3-8238-135436E35DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1D8313F-B426-4BF3-8238-135436E35DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50A50CC4-4719-4E72-90EB-42D3E7164C7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50A50CC4-4719-4E72-90EB-42D3E7164C7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50A50CC4-4719-4E72-90EB-42D3E7164C7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50A50CC4-4719-4E72-90EB-42D3E7164C7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A1D8313F-B426-4BF3-8238-135436E35DA8} = {1383B1B7-E2F4-4221-A365-D838346C55A1}
+		{50A50CC4-4719-4E72-90EB-42D3E7164C7B} = {1383B1B7-E2F4-4221-A365-D838346C55A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7AF836E1-F611-4B46-98CC-2DF1B6EDECC7}

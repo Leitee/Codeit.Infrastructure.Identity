@@ -13,9 +13,9 @@ namespace Codeit.Infrastructure.Identity.DAL.Context
 
         private readonly DALSettings _setting;
 
-        private IdentityEFPersistenceBuilder(IConfiguration configuration)
+        private IdentityEFPersistenceBuilder(DALSettings settings)
         {
-            _setting = DALSettings.GetSection(configuration ?? throw new DataAccessTierException(nameof(configuration)));
+            _setting = settings ?? throw new DataAccessTierException(nameof(settings));
         }
 
         public void ConfigurePersistence(DbContextOptionsBuilder options)
@@ -23,7 +23,7 @@ namespace Codeit.Infrastructure.Identity.DAL.Context
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
             options.EnableDetailedErrors(_setting.IsDevelopment);
             options.EnableSensitiveDataLogging(_setting.IsDevelopment);
-            options.UseSqlServer(_setting.DatabaseUrl, sqlOpt =>
+            options.UseSqlServer(_setting.DatabaseConnection, sqlOpt =>
             {
                 sqlOpt.MigrationsHistoryTable("Migrations", "CONFIG");
                 sqlOpt.MigrationsAssembly(typeof(DependencyInjection).GetTypeInfo().Assembly.GetName().Name);
@@ -41,10 +41,10 @@ namespace Codeit.Infrastructure.Identity.DAL.Context
             storeOptions.ConfigureDbContext = ConfigurePersistence;
         }
 
-        public static IdentityEFPersistenceBuilder Build(IConfiguration configuration)
+        public static IdentityEFPersistenceBuilder Build(DALSettings settings)
         {
             if (instance == null)
-                instance = new IdentityEFPersistenceBuilder(configuration);
+                instance = new IdentityEFPersistenceBuilder(settings);
 
             return instance;
         }

@@ -11,25 +11,25 @@ namespace Codeit.Infrastructure.Identity.Services
 {
     public class EmailSenderClient : IEmailSender
     {
-        private readonly IdentitySettings _settings;
+        private readonly AppSettings _settings;
         private readonly ILogger<EmailSenderClient> _logger;
 
         public EmailSenderClient(IConfiguration configuration, ILoggerFactory loggerFactory)
         {
-            _settings = IdentitySettings.GetSettings(configuration ?? throw new ArgumentNullException(nameof(configuration)));
+            _settings = AppSettings.GetSettings(configuration ?? throw new ArgumentNullException(nameof(configuration)));
             _logger = (loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory))).CreateLogger<EmailSenderClient>();
         }
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            return Execute(_settings.EmailSender.SendGridApiKey, subject, message, email);
+            return Execute(_settings.EmailSection.SendGridApiKey, subject, message, email);
         }
 
         public async Task Execute(string apiKey, string subject, string message, string email)
         {
             var client = new SendGridClient(apiKey);
-            string fromEmail = _settings.EmailSender.SendGridFromEmail;
-            string fromName = _settings.EmailSender.SendGridFromName;
+            string fromEmail = _settings.EmailSection.SendGridFromEmail;
+            string fromName = _settings.EmailSection.SendGridFromName;
 
             var msg = new SendGridMessage()
             {

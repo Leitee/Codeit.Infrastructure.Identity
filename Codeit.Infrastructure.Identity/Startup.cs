@@ -6,6 +6,7 @@ using Codeit.Infrastructure.Identity.DAL;
 using Codeit.Infrastructure.Identity.DAL.Context;
 using Codeit.Infrastructure.Identity.Interfaces;
 using Codeit.Infrastructure.Identity.Services;
+using Codeit.NetStdLibrary.Base.DataAccess;
 using IdentityServer4;
 using IdentityServer4.Configuration;
 using IdentityServer4.Services;
@@ -28,18 +29,28 @@ namespace Codeit.Infrastructure.Identity
     {
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
-        private readonly IdentitySettings _settings;
+        private readonly AppSettings _settings;
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Environment = env;
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _settings = IdentitySettings.GetSettings(Configuration);
+            _settings = AppSettings.GetSettings(Configuration);
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var efPersistenceBuilder = IdentityEFPersistenceBuilder.Build(Configuration);
+            services.AddOptions();
+            services.Configure<AppSettings>(Configuration);
+
+
+            //var settings = new IdentitySettings();
+            //this.Configuration.GetSection(WorkflowSettings.ConfigurationKey).Bind(_settings);
+
+            //services.AddSingleton<AppSettings>((sp) => _settings);
+
+
+            var efPersistenceBuilder = IdentityEFPersistenceBuilder.Build(_settings.DALSection);
 
             services
                 .AddPersistenceTier(Configuration)

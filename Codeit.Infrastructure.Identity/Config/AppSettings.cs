@@ -4,16 +4,17 @@
 namespace Codeit.Infrastructure.Identity.Config
 {
     using Codeit.NetStdLibrary.Base.Common;
+    using Codeit.NetStdLibrary.Base.DataAccess;
 
-    public class IdentitySettings : BaseSettings<IdentitySettings>
+    public class AppSettings : BaseSettings<AppSettings>
     {
-        public string DatabaseUrl { get; set; }
         public string LoggerServerUrl { get; set; }
         public string JwtSecretKey { get; set; }
         public string JwtValidIssuer { get; set; }
         public string JwtValidAudience { get; set; }
-        public ExternalIdp ExternalIdp { get; set; }
-        public EmailSender EmailSender { get; set; }
+        public DALSettings DALSection { get; set; }
+        public ExternalIdp ExternalProviderSection { get; set; }
+        public EmailSender EmailSection { get; set; }
     }
 
     public class ExternalIdp

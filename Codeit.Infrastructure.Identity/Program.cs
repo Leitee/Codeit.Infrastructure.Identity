@@ -14,27 +14,27 @@ namespace Codeit.Infrastructure.Identity
     public class Program
     {
         public static readonly string _appName = typeof(Program).Namespace;
-        private static string _environmentName = Environments.Development;
 
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .Enrich.WithProperty("ApplicationName", _appName)
-                .Enrich.WithProperty("Environment", _environmentName)
                 .Enrich.FromLogContext()
                 .ReadFrom.Configuration(CodeitUtils.BuildDefaultSettings(new ConfigurationBuilder()))
                 .CreateLogger();
 
             try
             {
-                Log.Information("Configuring web host ({ApplicationContext})...", _appName);
+                Log.Information("Configuring web host ({ApplicationName})...", _appName);
                 var host = Host
                     .CreateDefaultBuilder(args)
                     .ConfigureWebHostDefaults(wb => wb.UseStartup<Startup>())
                     .UseSerilog()
                     .Build();
 
-                Log.Information("Starting web host ({ApplicationContext})...", _appName);
+                //Log.Warning()
+
+                Log.Information("Starting web host ({ApplicationName})...", _appName);
                 host.Run();
             }
             catch (Exception ex)
