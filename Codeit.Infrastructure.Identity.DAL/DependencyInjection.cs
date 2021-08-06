@@ -15,10 +15,10 @@ namespace Codeit.Infrastructure.Identity.DAL
     {
         public static IServiceCollection AddPersistenceTier(this IServiceCollection services, IConfiguration configuration)
         {
-            var efPersistenceBuilder = IdentityEFPersistenceBuilder.Build(configuration);
+            var efPersistenceBuilder = EFPersistenceBuilder.Build(configuration);
 
             services
-                .AddDbContext<IdentityDBContext>(efPersistenceBuilder.ConfigurePersistence)
+                .AddDbContext<IdentityDBContext>(efPersistenceBuilder.BuildConfiguration)
                 .AddIdentity<IdentityAppUser, ApplicationRole>(options =>
                 {
                     // Password settings.

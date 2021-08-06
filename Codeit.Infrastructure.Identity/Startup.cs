@@ -39,7 +39,7 @@ namespace Codeit.Infrastructure.Identity
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var efPersistenceBuilder = IdentityEFPersistenceBuilder.Build(Configuration);
+            var efPersistenceBuilder = EFPersistenceBuilder.Build(Configuration);
 
             services
                 .AddPersistenceTier(Configuration)

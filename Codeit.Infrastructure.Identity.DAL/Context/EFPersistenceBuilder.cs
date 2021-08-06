@@ -7,18 +7,18 @@ using System.Reflection;
 
 namespace Codeit.Infrastructure.Identity.DAL.Context
 {
-    public class IdentityEFPersistenceBuilder : IPersistenceBuider
+    public class EFPersistenceBuilder : IPersistenceBuilder
     {
-        private static IdentityEFPersistenceBuilder instance;
+        private static EFPersistenceBuilder instance;
 
         private readonly DALSettings _setting;
 
-        private IdentityEFPersistenceBuilder(IConfiguration configuration)
+        private EFPersistenceBuilder(IConfiguration configuration)
         {
             _setting = DALSettings.GetSection(configuration ?? throw new DataAccessTierException(nameof(configuration)));
         }
 
-        public void ConfigurePersistence(DbContextOptionsBuilder options)
+        public void BuildConfiguration(DbContextOptionsBuilder options)
         {
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
             options.EnableDetailedErrors(_setting.IsDevelopment);
@@ -32,19 +32,19 @@ namespace Codeit.Infrastructure.Identity.DAL.Context
 
         public void ConfigureOperationalStore(OperationalStoreOptions storeOptions)
         {
-            storeOptions.ConfigureDbContext = ConfigurePersistence;
+            storeOptions.ConfigureDbContext = BuildConfiguration;
             storeOptions.EnableTokenCleanup = true;
         }
 
         public void ConfigureGrantsStore(ConfigurationStoreOptions storeOptions)
         {
-            storeOptions.ConfigureDbContext = ConfigurePersistence;
+            storeOptions.ConfigureDbContext = BuildConfiguration;
         }
 
-        public static IdentityEFPersistenceBuilder Build(IConfiguration configuration)
+        public static EFPersistenceBuilder Build(IConfiguration configuration)
         {
             if (instance == null)
-                instance = new IdentityEFPersistenceBuilder(configuration);
+                instance = new EFPersistenceBuilder(configuration);
 
             return instance;
         }
