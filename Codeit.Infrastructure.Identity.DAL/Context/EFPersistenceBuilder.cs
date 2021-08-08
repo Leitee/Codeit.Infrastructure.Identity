@@ -1,29 +1,28 @@
-﻿using IdentityServer4.EntityFramework.Options;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
-using Codeit.NetStdLibrary.Base.DataAccess;
-using System.Reflection;
-
+﻿
 namespace Codeit.Infrastructure.Identity.DAL.Context
 {
+    using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
+    using Codeit.NetStdLibrary.Base.DataAccess;
+    using IdentityServer4.EntityFramework.Options;
+    using Microsoft.EntityFrameworkCore;
+    using System.Reflection;
+
     public class EFPersistenceBuilder : IPersistenceBuilder
     {
         private static EFPersistenceBuilder instance;
 
         private readonly DALSettings _setting;
-
-        private EFPersistenceBuilder(IConfiguration configuration)
+        private EFPersistenceBuilder(DALSettings settings)
         {
-            _setting = DALSettings.GetSection(configuration ?? throw new DataAccessTierException(nameof(configuration)));
+            _setting = settings ?? throw new DataAccessTierException(nameof(settings));
         }
 
         public void BuildConfiguration(DbContextOptionsBuilder options)
         {
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-            options.EnableDetailedErrors(_setting.IsDevelopment);
-            options.EnableSensitiveDataLogging(_setting.IsDevelopment);
-            options.UseSqlServer(_setting.DatabaseUrl, sqlOpt =>
+            options.EnableDetailedErrors(_setting.EnableDetailedDebug);
+            options.EnableSensitiveDataLogging(_setting.EnableDetailedDebug);
+            options.UseSqlServer(_setting.DatabaseConnection, sqlOpt =>
             {
                 sqlOpt.MigrationsHistoryTable("Migrations", "CONFIG");
                 sqlOpt.MigrationsAssembly(typeof(DependencyInjection).GetTypeInfo().Assembly.GetName().Name);
@@ -41,10 +40,10 @@ namespace Codeit.Infrastructure.Identity.DAL.Context
             storeOptions.ConfigureDbContext = BuildConfiguration;
         }
 
-        public static EFPersistenceBuilder Build(IConfiguration configuration)
+        public static EFPersistenceBuilder Build(DALSettings settings)
         {
             if (instance == null)
-                instance = new EFPersistenceBuilder(configuration);
+                instance = new EFPersistenceBuilder(settings);
 
             return instance;
         }

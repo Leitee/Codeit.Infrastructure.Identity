@@ -5,17 +5,29 @@ namespace Codeit.Infrastructure.Identity.DAL
 {
     using Codeit.Infrastructure.Identity.DAL.Context;
     using Codeit.Infrastructure.Identity.Model.Entities;
+    using Codeit.NetStdLibrary.Base.DataAccess;
+    using Codeit.NetStdLibrary.Base.Identity;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Codeit.NetStdLibrary.Base.Identity;
     using System;
 
     public static partial class DependencyInjection
     {
-        public static IServiceCollection AddPersistenceTier(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPersistenceTier(this IServiceCollection services, string sectionKey)
         {
-            var efPersistenceBuilder = EFPersistenceBuilder.Build(configuration);
+            DALSettings dalSettings;
+            using (var servProv = services.BuildServiceProvider())
+            {
+                var config = servProv.GetService<IConfiguration>();
+                dalSettings = config.GetSection(sectionKey).Get<DALSettings>();
+            }
+
+            if (dalSettings is null)
+                throw new ArgumentNullException(nameof(dalSettings));
+
+            services.Configure<DALSettings>(sp => sp = dalSettings);
+            var efPersistenceBuilder = EFPersistenceBuilder.Build(dalSettings);
 
             services
                 .AddDbContext<IdentityDBContext>(efPersistenceBuilder.BuildConfiguration)
