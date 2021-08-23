@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Reinforced.Typings" Version="1.6.1" />
+  </ItemGroup>
+
+</Project>
