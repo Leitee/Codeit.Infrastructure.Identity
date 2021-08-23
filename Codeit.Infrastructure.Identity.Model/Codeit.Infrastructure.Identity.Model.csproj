@@ -1,15 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>$(NetStandardTargetVersion)</TargetFramework>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Reinforced.Typings" Version="1.6.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" />
   </ItemGroup>
 
 </Project>

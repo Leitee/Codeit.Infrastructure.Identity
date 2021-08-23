@@ -1,21 +1,21 @@
 <Project>  
   <PropertyGroup Label="SDK and Lang Versions">
-    <NetStandardTargetVersion>netstandard2.1</NetStandardTargetVersion>
-    <NetCoreTargetVersion>net5.0</NetCoreTargetVersion>
+    <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   
   <ItemGroup Label="Global Package Imports">
+    <PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.9.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <PropertyGroup Label="Global Package Versions">
-    <CodeitBaseVersion>0.6.1</CodeitBaseVersion>
     <EntityFrameworkAllPackageVersion>3.1.8</EntityFrameworkAllPackageVersion>
     <MicrosoftExtensionsConfigurationAllPackageVersion>3.1.3</MicrosoftExtensionsConfigurationAllPackageVersion>
   </PropertyGroup>
-  
-  <!--DO NOT CHANGE CODE BELOW-->
-  
+
+  <ItemGroup>
+    <!--<ProjectReference Include="..\..\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" />-->
+  </ItemGroup>
 
 </Project>

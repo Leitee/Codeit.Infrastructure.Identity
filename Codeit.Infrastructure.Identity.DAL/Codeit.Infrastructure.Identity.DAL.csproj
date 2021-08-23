@@ -1,17 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>$(NetStandardTargetVersion)</TargetFramework>
-  </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Context\DesignTimeIdentityDBContextFactory.cs" />
-    <Compile Remove="Context\EFPersistenceBuilder.cs.BASE.cs" />
-    <Compile Remove="Context\EFPersistenceBuilder.cs.LOCAL.cs" />
-    <Compile Remove="Context\EFPersistenceBuilder.cs.REMOTE.cs" />
-    <Compile Remove="DependencyInjection.cs.BASE.cs" />
-    <Compile Remove="DependencyInjection.cs.LOCAL.cs" />
-    <Compile Remove="DependencyInjection.cs.REMOTE.cs" />
   </ItemGroup>
 
   <ItemGroup>

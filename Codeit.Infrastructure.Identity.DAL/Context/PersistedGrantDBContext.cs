@@ -1,9 +1,9 @@
-﻿using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Options;
-using Microsoft.EntityFrameworkCore;
-
+﻿
 namespace Codeit.Infrastructure.Identity.DAL.Context
 {
+    using IdentityServer4.EntityFramework.DbContexts;
+    using IdentityServer4.EntityFramework.Options;
+    using Microsoft.EntityFrameworkCore;
 
     public class PersistedGrantDBContext : PersistedGrantDbContext<PersistedGrantDBContext>
     {

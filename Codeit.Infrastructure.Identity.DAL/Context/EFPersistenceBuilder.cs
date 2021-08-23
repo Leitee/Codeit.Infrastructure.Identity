@@ -14,7 +14,7 @@ namespace Codeit.Infrastructure.Identity.DAL.Context
         private readonly DALSettings _setting;
         private EFPersistenceBuilder(DALSettings settings)
         {
-            _setting = settings ?? throw new DataAccessTierException(nameof(settings));
+            _setting = settings ?? throw new DataAccessLayerException(nameof(settings));
         }
 
         public void BuildConfiguration(DbContextOptionsBuilder options)

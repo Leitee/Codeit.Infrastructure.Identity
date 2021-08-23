@@ -1,11 +1,16 @@
-﻿using Codeit.Infrastructure.Identity.Model.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Codeit.NetStdLibrary.Base.Identity;
-
+﻿
 namespace Codeit.Infrastructure.Identity.DAL.Context
 {
+    using Codeit.Infrastructure.Identity.Model.Entities;
+    using Codeit.NetStdLibrary.Base.Abstractions.Identity;
+    using Codeit.NetStdLibrary.Base.Common;
+    using Codeit.NetStdLibrary.Base.Identity;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Collections.Generic;
+
 
     public class IdentityDBContext : IdentityDbContext<IdentityAppUser, ApplicationRole, string>
     {
@@ -40,88 +45,90 @@ namespace Codeit.Infrastructure.Identity.DAL.Context
                 .HasKey(s => s.Id)
                 .HasName("SettingsID");
 
-            /*
             #region Identity fields seeding
 
             builder.Entity<ApplicationRole>().HasData(new List<ApplicationRole>
             {
-                new ApplicationRole(RolesEnum.DEBUG.GetDescription(), "Full functionality over app and debugin") { Id = RolesEnum.DEBUG.GetId().ToString() },
-                new ApplicationRole(RolesEnum.ADMINISTRADOR.GetDescription(), "Full permissions and features") { Id = RolesEnum.ADMINISTRADOR.GetId().ToString() },
-                new ApplicationRole(RolesEnum.SUPERVISOR.GetDescription(), "Limited functionality just administrative permissions") { Id = RolesEnum.SUPERVISOR.GetId().ToString() },
-                new ApplicationRole(RolesEnum.TEACHER.GetDescription(), "Limited functionality just teaching-relative permissions") { Id = RolesEnum.TEACHER.GetId().ToString() },
-                new ApplicationRole(RolesEnum.STUDENT.GetDescription(), "Limited functionality just student-relative permissions") { Id = RolesEnum.STUDENT.GetId().ToString() }
+                new ApplicationRole(RoleEnum.DEBUG.GetDescription(), "Full functionality over app and debugin") { Id = RoleEnum.DEBUG.GetId().ToString() },
+                new ApplicationRole(RoleEnum.ADMIN.GetDescription(), "Full permissions and features") { Id = RoleEnum.ADMIN.GetId().ToString() },
+                new ApplicationRole(RoleEnum.USER.GetDescription(), "Sensitives features are limited ") { Id = RoleEnum.USER.GetId().ToString() },
+                new ApplicationRole(RoleEnum.GUEST.GetDescription(), "Public data accebility only") { Id = RoleEnum.GUEST.GetId().ToString() }
             });
 
-            builder.Entity<IdentityServerUser>().HasData(new IdentityServerUser("devadmin", "info@Codeitsistemas.com", "Jhon", "Doe")
+            var user1  = new IdentityAppUser("devadmin", "info@codeitcorp.com", "Jhon", "Doe")
             {
-                Id = "-1",
+                Id = Guid.NewGuid().ToString(),
                 EmailConfirmed = true,
                 LockoutEnabled = false,
                 TwoFactorEnabled = false,
-                PasswordHash = new PasswordHasher<IdentityServerUser>().HashPassword(null, "Dev321"),
+                PasswordHash = new PasswordHasher<IdentityAppUser>().HashPassword(null, "Dev321"),
                 SecurityStamp = string.Empty,
-            });
+            };
+            builder.Entity<IdentityAppUser>().HasData(user1);
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = user1.Id, RoleId = RoleEnum.DEBUG.GetId().ToString() });
 
-            builder.Entity<IdentityServerUser>().HasData(new IdentityServerUser("risanchez", "risanchez@admin.com", "Rick", "Sanchez")
+            var user2 = new IdentityAppUser("risanchez", "risanchez@admin.com", "Rick", "Sanchez")
             {
-                Id = "1",
+                Id = Guid.NewGuid().ToString(),
                 EmailConfirmed = true,
                 LockoutEnabled = false,
                 TwoFactorEnabled = false,
-                PasswordHash = new PasswordHasher<IdentityServerUser>().HashPassword(null, "Rick321"),
+                PasswordHash = new PasswordHasher<IdentityAppUser>().HashPassword(null, "Rick321"),
                 SecurityStamp = string.Empty,
-            });
+            };
+            builder.Entity<IdentityAppUser>().HasData(user2);
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = user2.Id, RoleId = RoleEnum.ADMIN.GetId().ToString() });
 
-            builder.Entity<IdentityServerUser>().HasData(new IdentityServerUser("dabrown", "dabrown@teacher.com", "Dan", "Brown")
+            var user3 = new IdentityAppUser("dabrown", "dabrown@teacher.com", "Dan", "Brown")
             {
-                Id = "11",
+                Id = Guid.NewGuid().ToString(),
                 EmailConfirmed = true,
                 LockoutEnabled = false,
                 TwoFactorEnabled = false,
-                PasswordHash = new PasswordHasher<IdentityServerUser>().HashPassword(null, "Dan321"),
+                PasswordHash = new PasswordHasher<IdentityAppUser>().HashPassword(null, "Dan321"),
                 SecurityStamp = string.Empty,
-            });
+            };
+            builder.Entity<IdentityAppUser>().HasData(user3);
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = user3.Id, RoleId = RoleEnum.USER.GetId().ToString() });
 
-            builder.Entity<IdentityServerUser>().HasData(new IdentityServerUser("brwayne", "bruce.wayne@student.com", "Bruce", "Wayne")
+            var user4 = new IdentityAppUser("brwayne", "bruce.wayne@student.com", "Bruce", "Wayne")
             {
-                Id = "101",
+                Id = Guid.NewGuid().ToString(),
                 EmailConfirmed = true,
                 LockoutEnabled = false,
                 TwoFactorEnabled = false,
-                PasswordHash = new PasswordHasher<IdentityServerUser>().HashPassword(null, "Bru321"),
+                PasswordHash = new PasswordHasher<IdentityAppUser>().HashPassword(null, "Bru321"),
                 SecurityStamp = string.Empty,
-            });
+            };
+            builder.Entity<IdentityAppUser>().HasData(user4);
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = user4.Id, RoleId = RoleEnum.USER.GetId().ToString() });
 
-            builder.Entity<IdentityServerUser>().HasData(new IdentityServerUser("anrand", "ayn.rand@student.com", "Ayn", "Rand")
+            var user5 = new IdentityAppUser("anrand", "ayn.rand@student.com", "Ayn", "Rand")
             {
-                Id = "102",
+                Id = Guid.NewGuid().ToString(),
                 EmailConfirmed = true,
                 LockoutEnabled = false,
                 TwoFactorEnabled = false,
-                PasswordHash = new PasswordHasher<IdentityServerUser>().HashPassword(null, "Ayn321"),
+                PasswordHash = new PasswordHasher<IdentityAppUser>().HashPassword(null, "Ayn321"),
                 SecurityStamp = string.Empty,
-            });
+            };
+            builder.Entity<IdentityAppUser>().HasData(user5);
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = user5.Id, RoleId = RoleEnum.USER.GetId().ToString() });
 
-            builder.Entity<IdentityServerUser>().HasData(new IdentityServerUser("mifriedman", "milton.friedman@student.com", "Milton", "Friedman")
+            var user6 = new IdentityAppUser("mifriedman", "milton.friedman@student.com", "Milton", "Friedman")
             {
-                Id = "103",
+                Id = Guid.NewGuid().ToString(),
                 EmailConfirmed = true,
                 LockoutEnabled = false,
                 TwoFactorEnabled = false,
-                PasswordHash = new PasswordHasher<IdentityServerUser>().HashPassword(null, "Mil321"),
+                PasswordHash = new PasswordHasher<IdentityAppUser>().HashPassword(null, "Mil321"),
                 SecurityStamp = string.Empty,
-            });
-
-            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = "-1", RoleId = RolesEnum.DEBUG.GetId().ToString() });
-            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = "1", RoleId = RolesEnum.ADMINISTRADOR.GetId().ToString() });
-            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = "11", RoleId = RolesEnum.TEACHER.GetId().ToString() });
-            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = "101", RoleId = RolesEnum.STUDENT.GetId().ToString() });
-            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = "102", RoleId = RolesEnum.STUDENT.GetId().ToString() });
-            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = "103", RoleId = RolesEnum.STUDENT.GetId().ToString() });
+            };
+            builder.Entity<IdentityAppUser>().HasData(user6);
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>() { UserId = user6.Id, RoleId = RoleEnum.GUEST.GetId().ToString() });
 
             #endregion
 
-            */
         }
     }
 }

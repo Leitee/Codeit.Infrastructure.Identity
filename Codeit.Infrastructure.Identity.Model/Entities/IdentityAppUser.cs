@@ -13,30 +13,6 @@ namespace Codeit.Infrastructure.Identity.Model.Entities
         public int? SettingsId { get; private set; }
         public virtual Settings Settings { get; private set; }
         
-
-        #region Override Base Properties
-        public new string Id { get => base.Id; private set => base.Id = value; }
-        public new string UserName { get => base.UserName; private set => base.UserName = value; }
-        public new string NormalizedUserName { get => base.NormalizedUserName; private set => base.NormalizedUserName = value; }
-        public new string Email { get => base.Email; private set => base.Email = value; }
-        public new string NormalizedEmail { get => base.NormalizedEmail; private set => base.NormalizedEmail = value; }
-        public new bool EmailConfirmed { get => base.EmailConfirmed; private set => base.EmailConfirmed = value; }
-        public new string PasswordHash { get => base.PasswordHash; private set => base.PasswordHash = value; }
-        public new string SecurityStamp { get => base.SecurityStamp; private set => base.SecurityStamp = value; }
-        public new string ConcurrencyStamp { get => base.ConcurrencyStamp; private set => base.ConcurrencyStamp = value; }
-        public new string PhoneNumber { get => base.PhoneNumber; private set => base.PhoneNumber = value; }
-        public new bool PhoneNumberConfirmed { get => base.PhoneNumberConfirmed; private set => base.PhoneNumberConfirmed = value; }
-        public new bool TwoFactorEnabled { get => base.TwoFactorEnabled; private set => base.TwoFactorEnabled = value; }
-        public new DateTimeOffset? LockoutEnd { get => base.LockoutEnd; private set => base.LockoutEnd = value; }
-        public new bool LockoutEnabled { get => base.LockoutEnabled; private set => base.LockoutEnabled = value; }
-        public new int AccessFailedCount { get => base.AccessFailedCount; private set => base.AccessFailedCount = value; }
-
-        public new string FirstName { get => base.FirstName; private set => base.FirstName = value; }
-        public new string LastName { get => base.LastName; private set => base.LastName = value; }
-        public new DateTime JoinDate { get => base.JoinDate; private set => base.JoinDate = value; }
-        public new bool Deleted { get => base.Deleted; private set => base.Deleted = value; }
-        #endregion
-
         public IdentityAppUser()
             : base()
         {

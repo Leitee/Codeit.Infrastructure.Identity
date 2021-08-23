@@ -4,7 +4,7 @@
 * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the ‘docs’ folder for license information on type of purchased license.
 */
 
-using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
+using Codeit.NetStdLibrary.Base.Abstractions.BusinessLogic;
 
 namespace Codeit.Infrastructure.Identity.Model.Dtos
 {
