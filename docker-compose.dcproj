@@ -6,7 +6,7 @@
     <ProjectGuid>c21062b9-caf4-42ba-abdc-d94fe2bd85be</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/</DockerServiceUrl>
-    <DockerServiceName>codeit.infrastructure.identity</DockerServiceName>
+    <DockerServiceName>Codeit.Identity</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
