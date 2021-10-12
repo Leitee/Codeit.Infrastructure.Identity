@@ -8,6 +8,7 @@ namespace Codeit.Infrastructure.Identity.Config
 
     public class AppSettings : BaseSettings<AppSettings>
     {
+        public bool? UseLoggerServer { get; set; }
         public string LoggerServerUrl { get; set; }
         public string JwtSecretKey { get; set; }
         public string JwtValidIssuer { get; set; }

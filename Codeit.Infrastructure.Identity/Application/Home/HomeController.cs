@@ -30,7 +30,7 @@ namespace Codeit.Infrastructure.Identity.Application.UI
 
         public IActionResult Index()
         {
-            if (_environment.IsDevelopment())
+            if (!_environment.IsProduction())
             {
                 // only show in development
                 return View();
