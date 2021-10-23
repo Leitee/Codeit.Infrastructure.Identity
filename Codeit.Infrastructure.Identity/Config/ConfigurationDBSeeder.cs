@@ -34,14 +34,14 @@ namespace Codeit.Infrastructure.Identity.Config
             var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDBContext>();
 
             #region Web Client
-            if (!context.Clients.Any(_ => _.ClientId == "shcoolmngr-web"))
+            if (!context.Clients.Any(_ => _.ClientId == "shcoolmngr-spa"))
             {
                 var client = new Client
                 {
-                    ClientId = "shcoolmngr-web",
+                    ClientId = "shcoolmngr-spa",
                     ClientName = "Client for SchoolMngr web app.",
+                    ClientSecrets = { new Secret("shcoolmngr-secret".ToSha256()) },
                     AllowedGrantTypes = new string[] { GrantType.ClientCredentials, GrantType.ResourceOwnerPassword },
-                    ClientSecrets = { new Secret("shcoolmngr-pass".ToSha256()) },
 
                     AllowedScopes =
                     {
@@ -67,14 +67,14 @@ namespace Codeit.Infrastructure.Identity.Config
             #endregion
 
             #region MVC Client
-            if (!context.Clients.Any(_ => _.ClientId == "mvc-client"))
+            if (!context.Clients.Any(_ => _.ClientId == "backoffice-mvc"))
             {
                 var client = new Client
                 {
-                    ClientId = "mvc-client",
-                    ClientSecrets = { new Secret("mvc-secret".ToSha256()) },
+                    ClientId = "backoffice-mvc",
+                    ClientSecrets = { new Secret("backoffice-secret".ToSha256()) },
 
-                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = false,
                     RequirePkce = false,
 
@@ -89,7 +89,7 @@ namespace Codeit.Infrastructure.Identity.Config
                         OidcConstants.StandardScopes.OpenId,
                         OidcConstants.StandardScopes.Profile,
                         OidcConstants.StandardScopes.Email,
-                        "trainers",
+                        "backoffice",
                         IdentityServerConstants.LocalApi.ScopeName
                     },
 

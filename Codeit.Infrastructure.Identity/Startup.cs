@@ -44,10 +44,10 @@ namespace Codeit.Infrastructure.Identity
             //services.AddSingleton<AppSettings>((sp) => _settings);
 
 
-            var efPersistenceBuilder = EFPersistenceBuilder.Build(_settings.DALSection);
+            var efPersistenceBuilder = EFPersistenceBuilder.Build(_settings.DalSection);
 
             services
-                .AddPersistenceTier("DALSection")
+                .AddPersistenceTier("DalSection")
                 .AddControllersWithViews();
 
             services.AddHealthChecks()
