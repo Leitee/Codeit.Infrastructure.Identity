@@ -1,21 +1,35 @@
-<Project>  
-  <PropertyGroup Label="SDK and Lang Versions">
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+<Project>
+		
+	<PropertyGroup Label="SDK and Lang Versions">		
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Version>0.10.0</Version>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Assembly information">
+		<Authors>Leonardo Moreno</Authors>
+		<Company>Codeit Corp</Company>
+		<RepositoryUrl>https://github.com/Leitee/Codeit.Infrastructure.Identity</RepositoryUrl>
+		<PackageTags>identity auth oidc oauth2</PackageTags>
+		<Copyright>Copyright © Codeit 2019</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<OutputType>Library</OutputType>
+		<NeutralLanguage>en</NeutralLanguage>
+	    <Description>STS IdP Server for centralized users management. Build on top of OpenSource IdentityServer library.</Description>
+	</PropertyGroup>
   
-  <ItemGroup Label="Global Package Imports">
-    <PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.9.1" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
+	<ItemGroup Label="Global Package Imports">
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	</ItemGroup>
 
-  <PropertyGroup Label="Global Package Versions">
-    <EntityFrameworkAllPackageVersion>3.1.8</EntityFrameworkAllPackageVersion>
-    <MicrosoftExtensionsConfigurationAllPackageVersion>3.1.3</MicrosoftExtensionsConfigurationAllPackageVersion>
-  </PropertyGroup>
+	<PropertyGroup Label="Global Package Versions">
+		<EntityFrameworkAllPackageVersion>3.1.8</EntityFrameworkAllPackageVersion>
+		<MicrosoftExtensionsConfigurationAllPackageVersion>3.1.3</MicrosoftExtensionsConfigurationAllPackageVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <!--<ProjectReference Include="..\..\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" />-->
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.10.0" />
+		<!--<ProjectReference Include="..\..\base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" />-->
+	</ItemGroup>
 
 </Project>

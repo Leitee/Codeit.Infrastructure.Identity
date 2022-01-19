@@ -30,7 +30,10 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
       "publishAllPorts": true,
-      "useSSL": true
+      "useSSL": false,
+      "environmentVariables": {
+        "COMPOSE_PROJECT_NAME": "Codeit.Identity.Service"
+      }
     }
   }
 }

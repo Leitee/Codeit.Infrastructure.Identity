@@ -1,23 +1,19 @@
-// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using Codeit.Infrastructure.Identity.Config;
 using Codeit.Infrastructure.Identity.DAL;
 using Codeit.Infrastructure.Identity.DAL.Context;
 using Codeit.Infrastructure.Identity.Interfaces;
 using Codeit.Infrastructure.Identity.Services;
-using Codeit.NetStdLibrary.Base.DataAccess;
 using IdentityServer4;
 using IdentityServer4.Configuration;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -27,13 +23,11 @@ namespace Codeit.Infrastructure.Identity
 {
     public class Startup
     {
-        public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
         private readonly AppSettings _settings;
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            Environment = env;
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _settings = AppSettings.GetSettings(Configuration);
         }
@@ -50,11 +44,14 @@ namespace Codeit.Infrastructure.Identity
             //services.AddSingleton<AppSettings>((sp) => _settings);
 
 
-            var efPersistenceBuilder = EFPersistenceBuilder.Build(_settings.DALSection);
+            var efPersistenceBuilder = EFPersistenceBuilder.Build(_settings.DalSection);
 
             services
-                .AddPersistenceTier("DALSection")
+                .AddPersistenceTier("DalSection")
                 .AddControllersWithViews();
+
+            services.AddHealthChecks()
+                .AddCheck("Self", _ => HealthCheckResult.Healthy());
 
             services.AddCors(options =>
             {
@@ -107,8 +104,8 @@ namespace Codeit.Infrastructure.Identity
                     options.CookieManager = new ChunkingCookieManager();
 
                     options.Cookie.HttpOnly = true;
-                    options.Cookie.SameSite = SameSiteMode.None;
-                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    options.Cookie.SameSite = SameSiteMode.Unspecified;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                 })
                 .AddGoogle("Google", options =>
                 {
@@ -119,6 +116,7 @@ namespace Codeit.Infrastructure.Identity
                 })
                 .AddOpenIdConnect("oidc", "Demo IdentityServer", options =>
                 {
+                    options.RequireHttpsMetadata = false;
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                     options.SignOutScheme = IdentityServerConstants.SignoutScheme;
                     options.SaveTokens = true;
@@ -145,23 +143,26 @@ namespace Codeit.Infrastructure.Identity
             services.AddScoped<IContextProvider, ContextProvider>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            app.UseIf(env.IsDevelopment(), _ => IdentityModelEventSource.ShowPII = true);
-            app.UseIf(env.IsDevelopment(), app => app.UseDeveloperExceptionPage());
-            app.UseIf(env.IsDevelopment(), app => app.UseMigrationsEndPoint());
+            app.UseIf(_settings.IsDevelopment, _ => IdentityModelEventSource.ShowPII = true);
+            app.UseIf(_settings.IsDevelopment, app => app.UseDeveloperExceptionPage());
+            app.UseIf(_settings.IsDevelopment, app => app.UseMigrationsEndPoint());
 
-            app.UseIf(env.IsDevelopment(), app =>
+            app.UseIf(_settings.IsDevelopment, app =>
             {
-                app.RunMigration();
-                app.SeedResource();
+
+                app.TryMigrateAndSeed();
+                app.SeedClients();
+                app.SeedPermissions();
                 app.SeedResources();
-                app.SeedClient();
-                app.SeedUser();
+                app.SeedScopes();
+                app.SeedUsers();
 
                 return app;
             });
 
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCookiePolicy();
@@ -177,6 +178,7 @@ namespace Codeit.Infrastructure.Identity
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/hc");
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
             });

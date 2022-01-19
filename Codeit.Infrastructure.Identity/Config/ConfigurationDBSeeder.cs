@@ -5,6 +5,7 @@ using Codeit.NetStdLibrary.Base.Common;
 using Codeit.NetStdLibrary.Base.Identity;
 using IdentityModel;
 using IdentityServer4;
+using IdentityServer4.EntityFramework.Interfaces;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
@@ -13,35 +14,63 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Codeit.Infrastructure.Identity.Config
 {
     public static class ConfigurationDBSeeder
     {
-        public static void RunMigration(this IApplicationBuilder app)
-        {
-            using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+        private static ConfigurationDBContext configContext;
 
-            serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDBContext>().Database.Migrate();
-            serviceScope.ServiceProvider.GetRequiredService<ConfigurationDBContext>().Database.Migrate();
-            serviceScope.ServiceProvider.GetRequiredService<IdentityDBContext>().Database.Migrate();
+        private static TContext GetContext<TContext>(IApplicationBuilder builder) where TContext : DbContext
+        {
+            using var serviceScope = builder.ApplicationServices
+                .GetService<IServiceScopeFactory>()
+                .CreateScope();
+
+            if (typeof(TContext) is ConfigurationDBContext)
+            {
+                return (configContext ?? serviceScope
+                        .ServiceProvider
+                        .GetRequiredService<ConfigurationDBContext>()) as TContext;
+            }
+
+            return serviceScope
+                .ServiceProvider
+                .GetRequiredService<TContext>();
         }
 
-        public static void SeedClient(this IApplicationBuilder app)
+        public async static Task TryMigrateAsync(this IApplicationBuilder app, CancellationToken cancellationToken = default)
+        {
+            //using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+
+            await GetContext<ConfigurationDBContext>(app).Database.MigrateAsync(cancellationToken);
+            await GetContext<PersistedGrantDBContext>(app).Database.MigrateAsync(cancellationToken);
+            await GetContext<IdentityDBContext>(app).Database.MigrateAsync(cancellationToken);
+        }
+
+        public static IApplicationBuilder TryMigrateAndSeed(this IApplicationBuilder app)
+        {
+            TryMigrateAsync(app, CancellationToken.None).GetAwaiter();
+            return app;
+        }
+
+        public static void SeedClients(this IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
 
             var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDBContext>();
 
             #region Web Client
-            if (!context.Clients.Any(_ => _.ClientId == "shcoolmngr-web"))
+            if (!context.Clients.Any(_ => _.ClientId == "shcoolmngr-spa"))
             {
                 var client = new Client
                 {
-                    ClientId = "shcoolmngr-web",
+                    ClientId = "shcoolmngr-spa",
                     ClientName = "Client for SchoolMngr web app.",
+                    ClientSecrets = { new Secret("shcoolmngr-secret".ToSha256()) },
                     AllowedGrantTypes = new string[] { GrantType.ClientCredentials, GrantType.ResourceOwnerPassword },
-                    ClientSecrets = { new Secret("shcoolmngr-pass".ToSha256()) },
 
                     AllowedScopes =
                     {
@@ -67,14 +96,14 @@ namespace Codeit.Infrastructure.Identity.Config
             #endregion
 
             #region MVC Client
-            if (!context.Clients.Any(_ => _.ClientId == "mvc-client"))
+            if (!context.Clients.Any(_ => _.ClientId == "backoffice-mvc"))
             {
                 var client = new Client
                 {
-                    ClientId = "mvc-client",
-                    ClientSecrets = { new Secret("mvc-secret".ToSha256()) },
+                    ClientId = "backoffice-mvc",
+                    ClientSecrets = { new Secret("backoffice-secret".ToSha256()) },
 
-                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = false,
                     RequirePkce = false,
 
@@ -89,7 +118,7 @@ namespace Codeit.Infrastructure.Identity.Config
                         OidcConstants.StandardScopes.OpenId,
                         OidcConstants.StandardScopes.Profile,
                         OidcConstants.StandardScopes.Email,
-                        "trainers",
+                        "backoffice",
                         IdentityServerConstants.LocalApi.ScopeName
                     },
 
@@ -102,10 +131,9 @@ namespace Codeit.Infrastructure.Identity.Config
             #endregion
         }
 
-        public static void SeedResources(this IApplicationBuilder app)
+        public static void SeedPermissions(this IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
-
             var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDBContext>();
 
             if (!context.IdentityResources.Any())
@@ -126,35 +154,53 @@ namespace Codeit.Infrastructure.Identity.Config
             }
         }
 
-        public static void SeedResource(this IApplicationBuilder app)
+        public static void SeedResources(this IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
-
             var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDBContext>();
 
             if (!context.ApiResources.Any())
             {
-                var catalogRes = new ApiResource("catalog", "Catalog API");
-                context.ApiResources.Add(catalogRes.ToEntity());
+                context.ApiResources
+                    .Add(new ApiResource("backofficeapi", "Backoffice Api")
+                    .ToEntity());
 
-                var accountsRes = new ApiResource("accounts", "Account API");
-                context.ApiResources.Add(accountsRes.ToEntity());
+                context.ApiResources
+                    .Add(new ApiResource("academeapi", "Academe Api")
+                    .ToEntity());
 
-                var localRes = new ApiResource(IdentityServerConstants.LocalApi.ScopeName, "IS4 Local API");
-                context.ApiResources.Add(localRes.ToEntity());
+                context.ApiResources
+                    .Add(new ApiResource(IdentityServerConstants.LocalApi.ScopeName, "IS4 Local API")
+                    .ToEntity());
 
-                context.SaveChanges();
-            }
-
-            if (!context.ApiScopes.Any())
-            {
-                var apiResource = new ApiScope("shcoolmngr", "Shcoolmngr Services");
-                context.ApiScopes.Add(apiResource.ToEntity());
                 context.SaveChanges();
             }
         }
+        
+        public static void SeedScopes(this IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+            var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDBContext>();
 
-        public static void SeedUser(this IApplicationBuilder app)
+            if (!context.ApiScopes.Any())
+            {
+                context.ApiScopes
+                    .Add(new ApiScope("shcoolmngr:read", "Shcoolmngr Read Only")
+                    .ToEntity());
+
+                context.ApiScopes
+                    .Add(new ApiScope("shcoolmngr:write", "Shcoolmngr Write Only")
+                    .ToEntity());
+
+                context.ApiScopes
+                    .Add(new ApiScope("shcoolmngr:full", "Shcoolmngr Read and Write")
+                    .ToEntity());
+
+                context.SaveChanges();
+            }
+        }
+        
+        public static void SeedUsers(this IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
 
@@ -176,6 +222,7 @@ namespace Codeit.Infrastructure.Identity.Config
                     user = userManager.FindByNameAsync("devadmin").Result;
 
                     var roleResul = userManager.AddToRoleAsync(user, roleName).Result;
+
                 }
             }
         }

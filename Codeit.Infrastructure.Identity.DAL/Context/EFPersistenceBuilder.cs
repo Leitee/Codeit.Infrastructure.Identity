@@ -20,8 +20,8 @@ namespace Codeit.Infrastructure.Identity.DAL.Context
         public void BuildConfiguration(DbContextOptionsBuilder options)
         {
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-            options.EnableDetailedErrors(_setting.EnableDetailedDebug);
-            options.EnableSensitiveDataLogging(_setting.EnableDetailedDebug);
+            options.EnableDetailedErrors(_setting.EnableDetailedDebug is true);
+            options.EnableSensitiveDataLogging(_setting.EnableDetailedDebug is true);
             options.UseSqlServer(_setting.DatabaseConnection, sqlOpt =>
             {
                 sqlOpt.MigrationsHistoryTable("Migrations", "CONFIG");

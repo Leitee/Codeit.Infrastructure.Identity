@@ -8,11 +8,12 @@ namespace Codeit.Infrastructure.Identity.Config
 
     public class AppSettings : BaseSettings<AppSettings>
     {
+        public bool? UseLoggerServer { get; set; }
         public string LoggerServerUrl { get; set; }
         public string JwtSecretKey { get; set; }
         public string JwtValidIssuer { get; set; }
         public string JwtValidAudience { get; set; }
-        public DALSettings DALSection { get; set; }
+        public DALSettings DalSection { get; set; }
         public ExternalIdp ExternalProviderSection { get; set; }
         public EmailSender EmailSection { get; set; }
     }
