@@ -151,11 +151,13 @@ namespace Codeit.Infrastructure.Identity
 
             app.UseIf(_settings.IsDevelopment, app =>
             {
-                app.RunMigration();
-                app.SeedResource();
+
+                app.TryMigrateAndSeed();
+                app.SeedClients();
+                app.SeedPermissions();
                 app.SeedResources();
-                app.SeedClient();
-                app.SeedUser();
+                app.SeedScopes();
+                app.SeedUsers();
 
                 return app;
             });
