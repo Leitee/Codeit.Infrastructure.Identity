@@ -1,10 +1,6 @@
 ﻿using Codeit.Infrastructure.Identity.Interfaces;
 using Codeit.Infrastructure.Identity.Model;
-using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Codeit.Infrastructure.Identity.Services
 {
