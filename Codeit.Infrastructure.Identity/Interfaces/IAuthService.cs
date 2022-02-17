@@ -1,5 +1,5 @@
 ﻿using Codeit.Infrastructure.Identity.Model.Dtos;
-using Codeit.NetStdLibrary.Base.Security;
+using Codeit.Enterprise.Base.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;

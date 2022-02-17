@@ -5,8 +5,8 @@ namespace Codeit.Infrastructure.Identity.DAL
 {
     using Codeit.Infrastructure.Identity.DAL.Context;
     using Codeit.Infrastructure.Identity.Model.Entities;
-    using Codeit.NetStdLibrary.Base.DataAccess;
-    using Codeit.NetStdLibrary.Base.Identity;
+    using Codeit.Enterprise.Base.DataAccess;
+    using Codeit.Enterprise.Base.Identity;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;

@@ -8,7 +8,7 @@ using Codeit.Infrastructure.Identity.DAL.Context;
 using Codeit.Infrastructure.Identity.Interfaces;
 using Codeit.Infrastructure.Identity.Model;
 using Microsoft.Extensions.Logging;
-using CodeitServiceBase = Codeit.NetStdLibrary.Base.BusinessLogic.BaseService;
+using CodeitServiceBase = Codeit.Enterprise.Base.BusinessLogic.BaseService;
 
 namespace Codeit.Infrastructure.Identity.Services
 {

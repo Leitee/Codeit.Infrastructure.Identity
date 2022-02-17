@@ -4,7 +4,7 @@
 namespace Codeit.Infrastructure.Identity.Model.Entities
 {
     using Codeit.Infrastructure.Identity.Model.Dtos;
-    using Codeit.NetStdLibrary.Base.Identity;
+    using Codeit.Enterprise.Base.Identity;
     using System;
 
     public class IdentityAppUser : ApplicationUser

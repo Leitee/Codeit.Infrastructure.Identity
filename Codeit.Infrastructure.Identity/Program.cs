@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using Codeit.Infrastructure.Identity.Config;
-using Codeit.NetStdLibrary.Base.Common;
-using Codeit.NetStdLibrary.Base.DataAccess;
+using Codeit.Enterprise.Base.Common;
+using Codeit.Enterprise.Base.DataAccess;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;

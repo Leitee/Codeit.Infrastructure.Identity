@@ -1,7 +1,7 @@
 ﻿using Codeit.Infrastructure.Identity.Interfaces;
 using Codeit.Infrastructure.Identity.Model.Entities;
 using Microsoft.AspNetCore.Identity;
-using Codeit.NetStdLibrary.Base.Identity;
+using Codeit.Enterprise.Base.Identity;
 using SendGrid.Helpers.Errors;
 using System;
 using System.Collections.Generic;

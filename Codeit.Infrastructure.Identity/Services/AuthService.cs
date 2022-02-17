@@ -1,7 +1,7 @@
 ﻿using Codeit.Infrastructure.Identity.Interfaces;
 using Codeit.Infrastructure.Identity.Model.Dtos;
 using Codeit.Infrastructure.Identity.Model.Entities;
-using Codeit.NetStdLibrary.Base.Security;
+using Codeit.Enterprise.Base.Security;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;

@@ -224,7 +224,7 @@ namespace Codeit.Infrastructure.Identity.DAL.Migrations.IdentityDB
                     b.ToTable("UserTokens","IDENTITY");
                 });
 
-            modelBuilder.Entity("Codeit.NetStdLibrary.Base.Identity.ApplicationRole", b =>
+            modelBuilder.Entity("Codeit.Enterprise.Base.Identity.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -263,7 +263,7 @@ namespace Codeit.Infrastructure.Identity.DAL.Migrations.IdentityDB
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Codeit.NetStdLibrary.Base.Identity.ApplicationRole", null)
+                    b.HasOne("Codeit.Enterprise.Base.Identity.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -290,7 +290,7 @@ namespace Codeit.Infrastructure.Identity.DAL.Migrations.IdentityDB
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Codeit.NetStdLibrary.Base.Identity.ApplicationRole", null)
+                    b.HasOne("Codeit.Enterprise.Base.Identity.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)

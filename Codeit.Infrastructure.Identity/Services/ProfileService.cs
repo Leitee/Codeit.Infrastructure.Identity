@@ -12,7 +12,7 @@ namespace Codeit.Infrastructure.Identity.Services
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    using Codeit.NetStdLibrary.Base.DataAccess;
+    using Codeit.Enterprise.Base.DataAccess;
     using IdentityModel;
 
     public class ProfileService : IProfileService

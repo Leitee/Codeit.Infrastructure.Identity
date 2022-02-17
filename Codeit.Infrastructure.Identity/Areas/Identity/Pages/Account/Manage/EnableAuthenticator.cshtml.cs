@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Codeit.NetStdLibrary.Base.Identity;
+using Codeit.Enterprise.Base.Identity;
 using Codeit.Infrastructure.Identity.Model.Entities;
 
 namespace Codeit.Infrastructure.Identity.Areas.Identity.Pages.Account.Manage

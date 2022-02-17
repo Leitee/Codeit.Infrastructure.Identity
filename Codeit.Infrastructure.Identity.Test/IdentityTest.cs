@@ -1,4 +1,4 @@
-using Codeit.NetStdLibrary.Base.Abstractions.Desentralized;
+using Codeit.Enterprise.Base.Abstractions.Desentralized;
 using System;
 using Xunit;
 

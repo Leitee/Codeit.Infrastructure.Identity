@@ -1,6 +1,6 @@
 ﻿
 using Codeit.Infrastructure.Identity.Model.Dtos;
-using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
+using Codeit.Enterprise.Base.Abstractions.DomainModel;
 
 namespace Codeit.Infrastructure.Identity.Model.Entities
 {

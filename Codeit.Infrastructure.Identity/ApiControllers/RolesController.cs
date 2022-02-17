@@ -5,7 +5,7 @@ namespace Codeit.Infrastructure.Identity.ApiControllers
 {
     using Codeit.Infrastructure.Identity.Interfaces;
     using Codeit.Infrastructure.Identity.Model.Dtos;
-    using Codeit.NetStdLibrary.Base.Application;
+    using Codeit.Enterprise.Base.Application;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using System.Linq;

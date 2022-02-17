@@ -2,9 +2,9 @@
 namespace Codeit.Infrastructure.Identity.DAL.Context
 {
     using Codeit.Infrastructure.Identity.Model.Entities;
-    using Codeit.NetStdLibrary.Base.Abstractions.Identity;
-    using Codeit.NetStdLibrary.Base.Common;
-    using Codeit.NetStdLibrary.Base.Identity;
+    using Codeit.Enterprise.Base.Abstractions.Identity;
+    using Codeit.Enterprise.Base.Common;
+    using Codeit.Enterprise.Base.Identity;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;

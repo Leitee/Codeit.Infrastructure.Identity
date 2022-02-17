@@ -1,8 +1,8 @@
 ﻿
 namespace Codeit.Infrastructure.Identity.DAL.Context
 {
-    using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
-    using Codeit.NetStdLibrary.Base.DataAccess;
+    using Codeit.Enterprise.Base.Abstractions.DataAccess;
+    using Codeit.Enterprise.Base.DataAccess;
     using IdentityServer4.EntityFramework.Options;
     using Microsoft.EntityFrameworkCore;
     using System.Reflection;
